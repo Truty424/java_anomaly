@@ -1,6 +1,6 @@
 import org.bouncycastle.crypto.engines.AESEngine;
+import org.bouncycastle.crypto.engines.ChaChaEngine;
 import org.bouncycastle.crypto.modes.CBCBlockCipher;
-import org.bouncycastle.crypto.modes.SICBlockCipher;
 import org.bouncycastle.crypto.paddings.PKCS7Padding;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.crypto.params.ParametersWithIV;
@@ -16,11 +16,9 @@ public class BcModeTestFile {
         return;
     }
 
-    public void decryptAESCTR(byte[] key, byte[] iv) {
-        AESEngine aes = AESEngine.newInstance(); // Noncompliant {{AES}}
-        SICBlockCipher ctr = new SICBlockCipher(aes); // Noncompliant {{AES-CTR}}
-
-        ctr.init(false, new ParametersWithIV(new KeyParameter(key), iv));
+    public void decryptChaCha20(byte[] key, byte[] iv) {
+        ChaChaEngine chaCha20 = new ChaChaEngine(20); // Noncompliant {{ChaCha20}}
+        chaCha20.init(false, new ParametersWithIV(new KeyParameter(key), iv));
         return;
     }
 }
